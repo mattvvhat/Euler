@@ -1,4 +1,4 @@
-# Project Euler
+# Euler
 
 C/C++ crack at project euler. Just to get the speed programming skills up.
 
@@ -17,4 +17,4 @@ Just to be able to quickly program dynamic programming stuff, etc.
 
 # License
 
-What's a license?
+Unlicense
