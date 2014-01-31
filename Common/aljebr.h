@@ -69,6 +69,43 @@ namespace aljebr {
     }
     return m;
   }
+
+  /**
+   * Greatest Common Divisor
+   * Compute the GCD of a natural number using Euclid's method.
+   * @param a a natural number
+   * @param b b natural number
+   * @return the greatest common divisor of a and b
+   */
+  ul gcd (ul a, ul b) {
+    if (b < a) {
+      unsigned long int t = a;
+      a = b;
+      b = t;
+    }
+
+    unsigned long int r = b % a;
+    unsigned long int m;
+
+    while (r != 0) {
+      b = a;
+      a = r;
+      m = b / a;
+      r = b % a;
+    }
+
+    return a;
+  }
+  /**
+   * Least Common Multiple
+   * Compute the LCD of a natural number
+   * @param a a natural number
+   * @param b b natural number
+   * @return the least common multiple of a and b
+   */
+  ul lcm (ul a, ul b) {
+    return a*b/gcd(a, b);
+  }
 }
 
 // Short name
