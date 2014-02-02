@@ -55,6 +55,7 @@ public:
     return *this;
   }
 
+  // Output stream for: out << Basic(...)
   friend std::ostream& operator<< (std::ostream &os, const Basic &rhs) {
     os << *rhs.ptr;
     return os;
