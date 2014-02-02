@@ -15,3 +15,7 @@ lambda11:
 	g++ lambda11.cpp -o dist/lambda11 -std=c++11
 	echo ""
 	./dist/lambda11
+basic:
+	mkdir -p dist
+	g++ basic.cpp -o dist/basic -std=c++11
+	./dist/basic
