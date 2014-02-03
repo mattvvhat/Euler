@@ -36,6 +36,14 @@ public:
     return s;
   }
 
+  static std::set<int>::const_iterator begin () {
+    return primes.begin();
+  }
+
+  static std::set<int>::const_iterator end () {
+    return primes.end();
+  }
+
 private:
   static int max;
   static std::set<int> primes;
@@ -43,3 +51,20 @@ private:
 
 int Eratosthenes::max = 0;
 std::set<int> Eratosthenes::primes = std::set<int>();
+
+/**
+std::map <number, number> factors (number n) {
+  std::map <number, number> divs;
+  auto it   = Eratosthenes::begin();
+  auto end  = Eratosthenes::end();
+  while (it != end) {
+    number d = *it;
+    while (n % d == 0) {
+      n /= d;
+      divs[d] = divs.count(d) + 1;
+    }
+    ++it;
+  }
+  return divs;
+}
+*/

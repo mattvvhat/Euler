@@ -51,3 +51,20 @@ private:
 
 int Eratosthenes::max = 0;
 std::set<int> Eratosthenes::primes = std::set<int>();
+
+/**
+std::map <number, number> factors (number n) {
+  std::map <number, number> divs;
+  auto it   = Eratosthenes::begin();
+  auto end  = Eratosthenes::end();
+  while (it != end) {
+    number d = *it;
+    while (n % d == 0) {
+      n /= d;
+      divs[d] = divs.count(d) + 1;
+    }
+    ++it;
+  }
+  return divs;
+}
+*/
