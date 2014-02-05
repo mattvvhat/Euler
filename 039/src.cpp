@@ -1,47 +1,42 @@
 #include <iostream>
-#include <cmath>
 #include <map>
+#include <cmath>
 
-float angle (unsigned a, unsigned b, unsigned c) {
-  float cosT;
-  cosT = pow(a, 2) + pow(b, 2) - pow(c, 2);
-  cosT = cosT / 2 / a / b;
-  return cosT;
-}
+#define IS_INTEGER(n) (n == (unsigned long long) n)
 
-#define MAX 1000
+typedef unsigned long long number;
 
 int main () {
 
-  std::map <unsigned, unsigned> counts;
+  std::map<number, number> perims;
 
-  // ...
-  for (int i=1; i <= MAX; i++) {
-    for (int j=i; j <= MAX; j++) {
-      for (int k=j; k <= MAX; k++) {
-        float cosT = angle(i, j, k);
-
-        if (cosT == 0) {
-          unsigned p = i+j+k;
-          counts[p] = counts.count(p) + 1;
-        }
-        else if (abs(cosT) > 1) {
-          break;
-        }
+  for (unsigned a=1; a <= 500; a++) {
+    for (unsigned b=a; b <= 500; b++) {
+      double c = sqrt(pow(a, 2) + pow(b, 2));
+      if (c == 1) {
+        std::cout << "!?";
+      }
+      if (IS_INTEGER(c)) {
+        unsigned p = a+b+c;
+        if (perims.count(p))
+          perims[p] = perims[p] + 1;
+        else
+          perims[p] = 1;
       }
     }
   }
 
-  int largest=0, large_val=0;
-  // ...
-  for (auto it=counts.begin(); it != counts.end(); ++it) {
-    if (it->second > largest) {
+  unsigned largest=0;
+  unsigned val=0;
+
+  for (auto it=perims.begin(); it != perims.end(); ++it) {
+    if (it->second > largest && it->first <= 1000) {
       largest = it->second;
+      val = it->first;
     }
   }
 
-  std::cout << largest << "\n";
-
+  std::cout << largest << " " << val << "\n";
 
   return 0;
 }
