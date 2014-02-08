@@ -171,6 +171,7 @@ namespace aljebr {
    */
   ull combine (ul n, ul k) {
     ull product=1, stop=n-k;
+    k = 2*k > n ? k : n-k;
     while (n > stop) {
       product *= n--;
     }

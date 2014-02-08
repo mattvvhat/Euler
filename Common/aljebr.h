@@ -8,6 +8,7 @@
 
 namespace aljebr {
   typedef unsigned long ul;
+  typedef unsigned long long ull;
   typedef std::map<ul,ul> nmap;
   typedef nmap::iterator nmap_iter;
 
@@ -168,8 +169,9 @@ namespace aljebr {
    * @param k the number of things to select
    * @return k-combinations from n
    */
-  ul combine (ul n, ul k) {
-    ul product=1, stop=n-k;
+  ull combine (ul n, ul k) {
+    ull product=1, stop=n-k;
+    k = 2*k > n ? k : n-k;
     while (n > stop) {
       product *= n--;
     }
