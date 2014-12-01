@@ -4,6 +4,7 @@ Note that our wrapper will convert strings such as "4h" to Card(Rank.four, Suit.
 """
 
 from enum import Enum
+from itertools import groupby
 
 # Suit
 # Enumeration of card suits
@@ -61,3 +62,17 @@ class Hand:
 
   def high_card (self):
     return self.cards[-1]
+
+  def is_flush (self):
+    suits = map(self.cards, lambda x: x.suit)
+    return len(set(suits)) <= 1
+
+  def is_straight (self):
+    numbers = map(self.cards, lambda x: x.rank)
+    for k in range(len(self.cards)-1):
+      if self.cards[k] != self.cards[k+1]: return False
+    return True
+
+  def is_two_pair (self): pass
+    # groupby
+
