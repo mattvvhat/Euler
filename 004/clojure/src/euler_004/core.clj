@@ -1,9 +1,14 @@
 (ns euler-004.core)
 
 ; convert int to string
+;
+;
 (defn int-to-string [n]
   (format "%d" n))
 
+; is-palindrome?
+;
+;
 (defn is-palindrome? [string]
   (def front (first string))
   (def back (last string))
@@ -13,11 +18,16 @@
     true
 
     (if (= front back)
+      ; Is the subsection a palindrome?
       (is-palindrome? (subs string 1 (- (count string) 1)))
+
+      ; Return false
       false)))
 
 
-
+; main
+;
+;
 (defn -main [& args]
   (println "Starting...")
 
