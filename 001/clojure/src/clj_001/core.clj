@@ -9,7 +9,17 @@
   (- (+ sum3 sum5) sum15)
   )
 
+(defn answer2 []
+  (def limit 1000)
+  (+
+   (reduce + (range 0 limit 3))
+   (reduce + (range 0 limit 5))
+   (- (reduce + (range 0 limit 15)))
+   )
+  )
+
 
 (defn -main [& args]
   (println (answer))
+  (println (answer2))
   )
