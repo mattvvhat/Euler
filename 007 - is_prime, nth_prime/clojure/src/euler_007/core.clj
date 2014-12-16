@@ -11,6 +11,44 @@
     )
   )
 
+
+(defn sieve-of-erat [total]
+  "
+  Sieve of Eratosthenes
+  Needs to be patched for performance...
+  what is wrong with the inner loop? It does a better job
+  of filtering the list than the other version, but it has *way*
+  worse runtime.
+  "
+  ; Divides
+  (defn divides? [value divider] (zero? (mod value divider)))
+
+  ; Does divider divide value without being equal to it?
+  ; (defn is-multiple? [value divider] (and (not= value divider) (divides? value divider)))
+  (defn is-multiple? [value divider] (divides? value divider))
+
+  ; Filter all the multiples of a particular number
+  (defn filter-multiples [ values number ]
+    (filter (fn [x] (not (is-multiple? x number))) values))
+
+  ; Tail-recursive loop
+  (loop [primes '() values (range 2 (inc total))]
+
+     (println values)
+    ; (if (empty? values)
+    (if (empty? values)
+      ; Return
+      primes
+
+      (let [ div (first values) ]
+        (recur
+          (cons div primes)
+          (filter-multiples values div)))))
+
+
+  ; END: sieve-of-erat
+  )
+
 ; 
 ;
 ;
@@ -35,12 +73,17 @@
       (recur (inc i) (filter-multiples values i)))))
 
 (defn -main [& args]
-  ; Naive-naive bad way
-  (time 
-    (println (filter is-prime? (range 2 1000))))
-
-  ; Sieve
+  ; Sieve 2
   (time 
     (println
-      (sieve-of-eratosthenes 1000)))
+      (sieve-of-erat 10)))
+
+  ; Sieve
+;   (time 
+;     (println
+;       (nth (sieve-of-eratosthenes 200000) 1)))
+
+  (time 
+    (println
+      (sieve-of-eratosthenes 10000)))
   )
