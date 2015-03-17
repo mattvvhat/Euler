@@ -50,4 +50,4 @@
 
 (defn -main
   [& args]
-  (println (vectorize search-this-thing)))
+  (println (apply max (get-mult-13 search-this-thing))))
