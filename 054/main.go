@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"sort"
+	"strconv"
 	"strings"
 )
 
@@ -29,6 +30,16 @@ func (h CardList) Swap(i, j int) {
 	h[i], h[j] = h[j], h[i]
 }
 
+func LoadCard(v string) Card {
+	//if len(v) != 2 {
+	//	return Card{0, 'G'}
+	//}
+	rank, _ := strconv.Atoi(v[0 : len(v)-1])
+	suit := rune(v[len(v)-1])
+
+	return Card{rank, suit}
+}
+
 func MakeHand(a, b, c, d, e Card) Hand {
 	hand := Hand{[]Card{a, b, c, d, e}}
 	sort.Sort(hand.Cards)
@@ -45,6 +56,11 @@ func (h Hand) String() string {
 
 func (c Card) String() string {
 	return fmt.Sprintf("%d", c.Rank) + string(c.Suit)
+}
+
+func (h *Hand) CardSets() map[int]int {
+	set := make(map[int]int)
+	return set
 }
 
 func (h *Hand) IsStraight() bool {
@@ -70,6 +86,23 @@ func (h *Hand) IsFlush() bool {
 	}
 
 	return true
+}
+
+func ToRank(val int) rune {
+	s := map[int]rune{
+		10: 'J',
+		11: 'Q',
+		12: 'K',
+		13: 'A',
+	}
+
+	r, present := s[val]
+
+	if present {
+		return r
+	} else {
+		return rune(fmt.Sprintf("%d", val)[0])
+	}
 }
 
 func main() {

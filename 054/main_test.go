@@ -66,6 +66,46 @@ func TestHandString(t *testing.T) {
 	}
 }
 
+func TestLoad(t *testing.T) {
+	expectations := map[string]Card{
+		"2S":  Card{2, 'S'},
+		"12H": Card{12, 'H'},
+	}
+
+	for expected, result := range expectations {
+		c := LoadCard(expected)
+		if c.String() != result.String() {
+			t.Fail()
+		}
+	}
+}
+
+func TestPairs(t *testing.T) {
+	//expectations := map[string](map[int]int){
+	//	"1H 2H 3H 4H 4S": map[int]int{1: 1, 2: 2, 3: 3, 4: 2},
+	//}
+
+	//for expected, results := range expectations {
+	//	fmt.Println(expected, results)
+	//}
+
+}
+
+func TestToRank(t *testing.T) {
+	expectations := map[int]rune{
+		11: 'Q',
+		12: 'K',
+		13: 'A',
+		3:  '3',
+	}
+
+	for expected, results := range expectations {
+		if ToRank(expected) != results {
+			t.Fail()
+		}
+	}
+}
+
 func TestNothing(t *testing.T) {
-	fmt.Println("k")
+	fmt.Println("")
 }
