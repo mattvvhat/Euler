@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"io/ioutil"
 	"sort"
 	"strconv"
 	"strings"
@@ -62,7 +63,7 @@ func LoadCard(v string) Card {
 }
 
 func LoadHand(v string) Hand {
-	cards := strings.Split(v, " ")
+	cards := strings.Split(strings.Trim(v, " "), " ")
 	cardList := make([]Card, 5, 5)
 	var hand Hand
 
@@ -216,10 +217,14 @@ func WhoWins(lhs, rhs string) int {
 	player2 := LoadHand(rhs)
 
 	if player1.Score() == player2.Score() {
-		for i, _ := range player1.Cards {
-			if player1.Cards[5-i-1].Rank < player1.Cards[5-i-1].Rank {
+
+		for i, _ := range player2.Cards {
+			p1 := player1.Cards[5-i-1].Rank
+			p2 := player2.Cards[5-i-1].Rank
+
+			if p1 < p2 {
 				return +1
-			} else if player1.Cards[5-i-1].Rank > player1.Cards[5-i-1].Rank {
+			} else if p1 > p2 {
 				return -1
 			}
 		}
@@ -234,5 +239,29 @@ func WhoWins(lhs, rhs string) int {
 }
 
 func main() {
-	fmt.Println(Card{14, 'H'}.String())
+	fileContentsBytes, _ := ioutil.ReadFile("p054_poker.txt")
+	fileContent := string(fileContentsBytes)
+	lines := strings.Split(fileContent, "\n")
+	sum := 0
+
+	for _, v := range lines {
+		if len(v) != 29 {
+			continue
+		}
+		lhs := v[0:15]
+		rhs := v[15:29]
+		p1 := LoadHand(lhs)
+		p2 := LoadHand(rhs)
+
+		if LoadHand(lhs).Score() == LoadHand(rhs).Score() && LoadHand(lhs).Score() == 1 {
+			fmt.Println(">>>>", p1, "vs", p2, " -> ", WhoWins(lhs, rhs))
+		}
+		if WhoWins(lhs, rhs) == 0 {
+		}
+		if WhoWins(lhs, rhs) == -1 {
+			sum += 1
+		}
+	}
+
+	fmt.Println(sum)
 }
