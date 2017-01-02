@@ -6,7 +6,7 @@ import (
 )
 
 func TestWhatever(t *testing.T) {
-	sieve := NewPrimeSieve(1000000)
+	sieve := NewNaiveSieve(1000000)
 
 	primes := []int{
 		2, 3, 5, 7, 11, 13,
