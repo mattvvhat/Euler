@@ -152,6 +152,36 @@ func (h Hand) CardSet() map[int]int {
 	return cardSet
 }
 
+type CardCount [][]int
+
+func (c CardCount) Len() int {
+	return len(c)
+}
+
+func (c CardCount) Less(i, j int) bool {
+	if c[i][1] != c[j][1] {
+		return c[i][1] < c[j][1]
+	} else {
+		return c[i][0] < c[j][0]
+	}
+}
+
+func (c CardCount) Swap(i, j int) {
+	c[i], c[j] = c[j], c[i]
+}
+
+func (h Hand) CardMap() [][]int {
+	cardMap := make(CardCount, 0, 5)
+
+	for rank, count := range h.CardSet() {
+		cardMap = append(cardMap, []int{rank, count})
+	}
+
+	sort.Sort(cardMap)
+
+	return cardMap
+}
+
 func (h Hand) CardDist() string {
 	values := make([]string, 0, 5)
 
@@ -165,7 +195,6 @@ func (h Hand) CardDist() string {
 }
 
 func (h Hand) Score() int {
-	// cardSet := h.CardSet()
 
 	switch h.CardDist() {
 	case "1 1 1 2":
@@ -217,17 +246,21 @@ func WhoWins(lhs, rhs string) int {
 	player2 := LoadHand(rhs)
 
 	if player1.Score() == player2.Score() {
+		p1 := player1.CardMap()
+		p2 := player2.CardMap()
 
-		for i, _ := range player2.Cards {
-			p1 := player1.Cards[5-i-1].Rank
-			p2 := player2.Cards[5-i-1].Rank
+		fmt.Println(p1, p2)
 
-			if p1 < p2 {
+		for i, _ := range p2 {
+			index := len(p2) - i - 1
+			switch {
+			case p1[index][0] < p2[index][0]:
 				return +1
-			} else if p1 > p2 {
+			case p1[index][0] > p2[index][0]:
 				return -1
 			}
 		}
+
 		return 0
 	}
 
@@ -250,14 +283,7 @@ func main() {
 		}
 		lhs := v[0:15]
 		rhs := v[15:29]
-		p1 := LoadHand(lhs)
-		p2 := LoadHand(rhs)
 
-		if LoadHand(lhs).Score() == LoadHand(rhs).Score() && LoadHand(lhs).Score() == 1 {
-			fmt.Println(">>>>", p1, "vs", p2, " -> ", WhoWins(lhs, rhs))
-		}
-		if WhoWins(lhs, rhs) == 0 {
-		}
 		if WhoWins(lhs, rhs) == -1 {
 			sum += 1
 		}

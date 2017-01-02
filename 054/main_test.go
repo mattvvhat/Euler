@@ -191,6 +191,7 @@ func TestWhoWins(t *testing.T) {
 	case WhoWins("5S 6S 7S 8S TS", "5D 6D 7D 8D TD") != 0:
 		t.Fail()
 	case WhoWins("3C 7S QC QH KS", "4C 5C 5D KC AH") != -1:
+		fmt.Println("??")
 		t.Fail()
 	}
 }
