@@ -52,7 +52,7 @@ func GetNewCandidates(candidates [][]int, primes []int, show bool) [][]int {
 }
 
 func main() {
-	sieve := NewNaiveSieve(10000)
+	sieve := NewNaiveSieve(1000)
 	PRIMES := sieve.Primes()
 
 	// ...
@@ -65,7 +65,7 @@ func main() {
 	primes := GetNewCandidates(primeSingletons, PRIMES, false)
 	primes = GetNewCandidates(primes, PRIMES, false)
 	primes = GetNewCandidates(primes, PRIMES, false)
-	primes = GetNewCandidates(primes, PRIMES, true)
+	// primes = GetNewCandidates(primes, PRIMES, true)
 
 	fmt.Println(primes)
 }
