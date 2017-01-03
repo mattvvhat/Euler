@@ -70,6 +70,12 @@ func TestC(t *testing.T) {
 	if !IsEqualIntArrayArray(C(vals, 1), x) {
 		t.Fail()
 	}
+
+	y := C(vals, 1)
+
+	if len(y) != 3 {
+		t.Fail()
+	}
 }
 
 func x() {

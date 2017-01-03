@@ -20,7 +20,7 @@ func extend(lhs, rhs []int) []int {
 
 func factorial(n int) int {
 	result := 1
-	for i := 1; i < n; i += 1 {
+	for i := 2; i <= n; i += 1 {
 		result *= i
 	}
 	return result
@@ -30,8 +30,11 @@ func C(lis []int, k int) [][]int {
 	var result [][]int
 
 	switch {
+	// Stop case
 	case k == 0:
 		return make([][]int, 0, 0)
+
+	// Trivial case
 	case k == 1:
 		result = make([][]int, len(lis), len(lis))
 
@@ -43,6 +46,12 @@ func C(lis []int, k int) [][]int {
 
 		return result
 	}
+
+	n := len(lis)
+	result = make([][]int, factorial(n)/factorial(n-k)/factorial(k))
+
+	fmt.Println(len(result))
+
 	return nil
 }
 
