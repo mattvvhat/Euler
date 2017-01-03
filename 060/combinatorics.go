@@ -26,7 +26,7 @@ func factorial(n int) int {
 	return result
 }
 
-func C(lis []int, k int) [][]int {
+func P(lis []int, k int) [][]int {
 	var result [][]int
 
 	switch {
@@ -48,40 +48,19 @@ func C(lis []int, k int) [][]int {
 	}
 
 	n := len(lis)
-	result = make([][]int, factorial(n)/factorial(n-k)/factorial(k))
+	result = make([][]int, 0, factorial(n)/factorial(n-k))
 
-	fmt.Println(len(result))
+	for i, v := range lis {
+		current := []int{v}
+		others := extend(lis[:i], lis[i+1:])
 
-	return nil
-}
-
-// Recursive
-func combinations(n int, k int, c *chan []int) {
-	if k == 0 {
-		return
+		for _, v := range P(others, k-1) {
+			item := extend(current, v)
+			result = append(result, item)
+		}
 	}
 
-	if n == 0 {
-		return
-	}
-
-	for i := 0; i < n; i++ {
-		x := extend([]int{}, []int{1, 2, 3})
-		*c <- x
-	}
-}
-
-// Return a channel yielding array of indices
-func Combinations(n, k int) chan []int {
-	length := factorial(n) / factorial(n-k) / factorial(k)
-	results := make(chan []int, length)
-
-	go func() {
-		combinations(n, k, &results)
-		close(results)
-	}()
-
-	return results
+	return result
 }
 
 func _() {

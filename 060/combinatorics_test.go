@@ -61,19 +61,32 @@ func IsEqualIntArrayArray(lhs, rhs [][]int) bool {
 func TestC(t *testing.T) {
 	vals := []int{1, 2, 3}
 
-	if !IsEqualIntArrayArray(C(vals, 0), [][]int{}) {
+	if !IsEqualIntArrayArray(P(vals, 0), [][]int{}) {
 		t.Fail()
 	}
 
 	x := [][]int{[]int{1}, []int{2}, []int{3}}
 
-	if !IsEqualIntArrayArray(C(vals, 1), x) {
+	if !IsEqualIntArrayArray(P(vals, 1), x) {
 		t.Fail()
 	}
 
-	y := C(vals, 1)
+	y := P(vals, 1)
 
 	if len(y) != 3 {
+		t.Fail()
+	}
+
+	z := P(vals, 2)
+
+	if len(z) != 6 {
+		t.Fail()
+	}
+
+	vals2 := []int{0, 1, 2, 3, 4}
+	a := P(vals2, 5)
+
+	if len(a) != 120 {
 		t.Fail()
 	}
 }
