@@ -13,8 +13,10 @@ func NewNaiveSieve(limit int) NaiveSieve {
 
 	primes := make(map[int]bool)
 
+	primes[2] = true
+
 	// Generate list of primes
-	for n := 2; n < limit; n += 1 {
+	for n := 3; n < limit; n += 2 {
 		if IsNaivePrime(n) {
 			primes[n] = true
 		}
@@ -49,7 +51,7 @@ func IsNaivePrime(n int) bool {
 
 	limit := int(math.Sqrt(float64(n)))
 
-	for i := 3; i < limit; i += 2 {
+	for i := 3; i <= limit; i += 2 {
 		if n%i == 0 {
 			return false
 		}
