@@ -30,3 +30,15 @@ func TestWhatever(t *testing.T) {
 		}
 	}
 }
+
+func TestAnsweredSolution(t *testing.T) {
+	sieve := NewNaiveSieve(1000000)
+
+	if IsConcatablePrime([]int{3, 7, 61, 121}, sieve) {
+		t.Fail()
+	}
+
+	if !IsConcatablePrime([]int{3, 7, 109, 673}, sieve) {
+		t.Fail()
+	}
+}
