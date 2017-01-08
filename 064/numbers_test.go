@@ -67,3 +67,18 @@ func TestRational(t *testing.T) {
 		t.Fail()
 	}
 }
+
+func TestIsSquare(t *testing.T) {
+	if IsSquare(2) {
+		t.Fail()
+	}
+	if !IsSquare(4) {
+		t.Fail()
+	}
+	if !IsSquare(421298 * 421298) {
+		t.Fail()
+	}
+	if !IsSquare(421298 * 421298) {
+		t.Fail()
+	}
+}

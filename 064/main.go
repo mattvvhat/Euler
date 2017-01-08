@@ -43,6 +43,8 @@ func ContinuedFractionOfRoot(n int) []int {
 		r1 := 1 / (r0 - a0)
 		a1 := math.Floor(r1)
 
+		fmt.Println(r1, a1)
+
 		if z, exists := matches[r1]; exists {
 			fmt.Println(int(r1), r1, z)
 			break
@@ -60,6 +62,5 @@ func ContinuedFractionOfRoot(n int) []int {
 func main() {
 	fmt.Println(ContinuedFractionOfRootFinite(2, 10))
 	fmt.Println(ContinuedFractionOfRootFinite(23, 10))
-
 	fmt.Println(ContinuedFractionOfRootFinite(23, 10))
 }

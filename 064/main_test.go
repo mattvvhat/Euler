@@ -16,7 +16,7 @@ func ArrayEquals(lhs, rhs []int) bool {
 	return true
 }
 
-func xxTestContinuedFractionOfRootFinite(t *testing.T) {
+func TestContinuedFractionOfRootFinite(t *testing.T) {
 	a := ContinuedFractionOfRootFinite(2, 3)
 
 	if len(a) != 3 {
@@ -28,7 +28,7 @@ func xxTestContinuedFractionOfRootFinite(t *testing.T) {
 	}
 }
 
-func xxTestContinuedFractionOfRoot(t *testing.T) {
+func TestContinuedFractionOfRoot(t *testing.T) {
 	a := ContinuedFractionOfRoot(2)
 
 	if len(a) != 2 {

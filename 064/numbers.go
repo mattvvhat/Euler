@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"math"
 )
 
 /**
@@ -60,13 +61,20 @@ func (self Rational) Inverse() Rational {
 	return Rational{self.d, self.n}
 }
 
+// Return whether an integer is square
+func IsSquare(n int) bool {
+	x := int(math.Sqrt(float64(n)))
+	return x*x == n
+}
+
 /**
  * Rational number + square number
  */
 
 type SquareNumber struct {
-	Rat Rational
-	Sqr int
+	Rat     Rational
+	Sqr     int
+	SqrSign int
 }
 
 func _() {
