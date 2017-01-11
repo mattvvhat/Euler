@@ -2,39 +2,51 @@ package main
 
 import (
 	"fmt"
-	_ "github.com/whatever/math/primes"
+	primes "github.com/whatever/math/primes"
 )
 
-func Gcd(a, b int) int {
-	for b != 0 {
-		a, b = b, a%b
+func Totient(number int, s primes.NaiveSieve) int {
+	result := 1
+	n := 1
+	d := 1
+
+	for p, _ := range s.PrimeFactorize(number) {
+		n *= p - 1
+		d *= p
 	}
-	return a
+	result = number * n / d
+	return result
+}
+
+func Max(v map[int]float64) (int, float64) {
+	maxIndex := -1
+	maxValue := -1.0
+
+	for i, v := range v {
+		if v > maxValue {
+			maxValue = v
+			maxIndex = i
+		}
+	}
+
+	return maxIndex, maxValue
 }
 
 func main() {
-	LIMIT := 1000000
-	hits := make(map[int]int)
+	limit := 1000000
+	s := primes.NewNaiveSieve(limit)
 
-	for i := 1; i <= LIMIT; i++ {
-		for j := 1; j < i; j++ {
-			if Gcd(i, j) == 1 {
-				hits[i]++
-			}
+	totients := make(map[int]float64)
+
+	for i := 2; i <= limit; i++ {
+		if i%1000 == 0 {
+			fmt.Println(i)
 		}
+		v := Totient(i, s)
+		totients[i] = float64(i) / float64(v)
 	}
 
-	highestInd := 1
-	highestVal := float64(hits[highestInd])
+	largestIndex, largestValue := Max(totients)
 
-	for i, v := range hits {
-		trial := float64(i) / float64(v)
-
-		if highestVal < trial {
-			highestInd = i
-			highestVal = trial
-		}
-	}
-
-	fmt.Println(highestInd, highestVal)
+	fmt.Println(largestIndex, largestValue)
 }

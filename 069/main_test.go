@@ -8,7 +8,7 @@ import (
 
 func TestTotient(t *testing.T) {
 
-	s := primes.NewNaiveSieve(1000)
+	_ = primes.NewNaiveSieve(1000)
 
 	expected := map[int]int{
 		2:  1,
@@ -23,7 +23,7 @@ func TestTotient(t *testing.T) {
 	}
 
 	for n, totient := range expected {
-		v := Totient(n, s)
+		v := Totient(n)
 		if v != totient {
 			fmt.Printf("T(%d) = %d != %d\n", n, v, totient)
 			t.Fail()
