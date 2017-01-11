@@ -1,6 +1,8 @@
 package main
 
 import (
+	"fmt"
+
 	"testing"
 )
 
@@ -31,7 +33,12 @@ func TestContinuedFractionOfRootFinite(t *testing.T) {
 func TestContinuedFractionOfRoot(t *testing.T) {
 	a := ContinuedFractionOfRoot(2)
 
-	if len(a) != 2 {
+	if !ArrayEquals(a.RepeatingValue, []int{2}) {
+		fmt.Println(a.RepeatingValue)
 		t.Fail()
 	}
+
+	b := ContinuedFractionOfRoot(5)
+	fmt.Println(a)
+	fmt.Println(b)
 }
