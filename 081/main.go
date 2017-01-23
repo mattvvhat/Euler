@@ -3,6 +3,9 @@ package main
 import (
 	"fmt"
 	g "github.com/whatever/math/graphs"
+	"io/ioutil"
+	"strconv"
+	"strings"
 )
 
 type Matrix struct {
@@ -35,17 +38,24 @@ func ShortestDistances(m *Matrix) [][]int {
 	return distances
 }
 
+func LoadMatrix(height int, width int, fileName string) Matrix {
+	m := NewMatrix(height, width)
+	x, _ := ioutil.ReadFile(fileName)
+	content := strings.Trim(string(x), "\n ")
+
+	for i, line := range strings.Split(content, "\n") {
+		for j, val := range strings.Split(line, ",") {
+			v, _ := strconv.Atoi(val)
+			m.Values[i*m.Width+j] = v
+		}
+	}
+
+	return m
+}
+
 func main() {
 
-	m := NewMatrix(5, 5)
-
-	m.Apply(
-		131, 673, 234, 103, 18,
-		201, 96, 342, 965, 150,
-		630, 803, 746, 422, 111,
-		537, 699, 497, 121, 956,
-		805, 732, 524, 37, 331,
-	)
+	m := LoadMatrix(80, 80, "p081_matrix.txt")
 
 	graph := g.NewWeightedUGraph()
 
@@ -76,8 +86,6 @@ func main() {
 				left := fmt.Sprintf("%d,%d", i, j-1)
 				graph.AddEdge(left, current, weight)
 			}
-
-			fmt.Println(fmt.Sprintf("%d,%d = %d", i, j, m.Get(i, j)))
 		}
 	}
 
@@ -86,7 +94,7 @@ func main() {
 	// fmt.Println(distances)
 	// fmt.Println(distances["4,4"])
 	// fmt.Println(distances["1,1"])
-	fmt.Println(distances["4,4"])
+	fmt.Println(distances["79,79"])
 
 	fmt.Println("...")
 }
