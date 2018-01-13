@@ -5,40 +5,67 @@ import (
 	"math"
 )
 
-func ContinuedFractionOfRootFinite(n, places int) []int {
-	results := make([]int, places)
+func Gcd(a, b uint) uint {
+	for b != 0 {
+		a, b = b, a%b
+	}
+	return a
+}
 
-	x := math.Sqrt(float64(n))
-	r0 := x
-	a0 := math.Floor(r0)
+type Fraction struct {
+	n, d uint
+}
 
-	results[0] = int(a0)
+func NewFraction(n, d uint) Fraction {
+	div := Gcd(n, d)
+	return Fraction{n / div, d / div}
+}
 
-	for i := 1; i < places; i++ {
-		r1 := 1 / (r0 - a0)
-		a1 := math.Floor(r1)
+type ContinuedRepeatingFraction struct {
+	Leading uint
+	Digits  []uint
+}
 
-		results[i] = int(a1)
+func ContinuedFractionOfSquare(value uint) ContinuedRepeatingFraction {
+	d := float64(value)
+	digits := []uint{}
 
-		r0 = r1
-		a0 = a1
+	r := uint(math.Floor(math.Sqrt(d)))
+	leading := r
+
+	// Start iteration
+	var a, p, q uint = r, 0, 1
+
+	// Catch perfect squares
+	if r*r == value {
+		return ContinuedRepeatingFraction{r, []uint{}}
 	}
 
-	return results
-}
+	for {
+		p = a*q - p
+		q = (value - p*p) / q
+		a = (r + p) / q
 
-type ContinuedFraction struct {
-	LeadingValue   int
-	RepeatingValue []int
-}
+		digits = append(digits, a)
 
-func ContinuedFractionOfRoot(n int) ContinuedFraction {
-	result.LeadingValue = int(math.Sqrt(float64(n)))
-	return result
+		if q == 1 {
+			break
+		}
+	}
+
+	return ContinuedRepeatingFraction{leading, digits}
 }
 
 func main() {
-	fmt.Println(ContinuedFractionOfRootFinite(2, 10))
-	fmt.Println(ContinuedFractionOfRootFinite(23, 10))
-	fmt.Println(ContinuedFractionOfRootFinite(23, 10))
+	odd_periods := 0
+
+	for i := 2; i <= 10000; i += 1 {
+		cf := ContinuedFractionOfSquare(uint(i))
+		length := len(cf.Digits)
+		if length%2 != 0 {
+			odd_periods += 1
+		}
+	}
+
+	fmt.Println(odd_periods)
 }
